@@ -1,0 +1,169 @@
+---
+title: "Excess deaths from all causes and by COVID-19 in Brazil in 2020"
+Authors: Antônio Augusto Moura da Silva
+         Alcione Miranda dos Santos
+         Bruno Feres de Souza
+Institution: Federal University of Maranhao, Brazil
+date: "10/08/2021"
+output:
+  pdf_document: default
+  html_document: default
+document: article
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+# Supplementary Material
+
+
+## Methods
+
+The Farrington algorithm is designed to detect outliers in univariate time series. To accomplish this, it considers an overdispersed Poisson generalized linear model (Quasi-Poisson) to determine a predictive distribution for the observed values of the series in a non-surge scenario. Considering the predictive distribution, a specific quantile is obtained, which will be used as a threshold to determine whether the observed value at time _t_ is an outlier. If the observed value is above this threshold, then an alarm is triggered. ^1^
+
+For execution of the algorithm, the time series of the number of deaths in the period from 2010 to 2020 for each Brazilian state was partitioned into two parts. The first partition of the series was composed with the data from week 1 of 2010 (i.e., January 3, 2010) to the last week of 2014 (December 28, 2014), corresponding to 260 epidemiological weeks. These data were used for fitting the quasi-Poisson model. The data from the first week of 2015 (January 4, 2015) until week 52 of 2020 (December 13, 2020) were considered for monitoring, totaling 312 weeks. Thus, using only values from the period 2010 to 2014 for model fitting, prediction intervals are obtained for the observed values for 2015 to 2020. 
+
+For detection of outliers in the series from 2015 to 2020, the quantile 0.995 of the predictive distribution of the observed values of the series was adopted as the threshold. The Farrington algorithm is implemented in the surveillance package of the R program, and the function farrington should be used for its execution. ^2^
+
+Supplementary figures 46, 47, and 48 present the detected alarms for the death series for some brazilian states where specific patterns of alarms were observed in some weeks of 2016 - RN, PE, AL, PB, RJ, SP, PR and RS states. For comparison purposes, we fitted the model specified in equation (1), described in the methods section of the main article, with the series from 2015 to 2019 with the weeks that showed anomalies in the year 2016 and without the inclusion of these weeks. Although the differences were statistically significant, the relative differences between the estimates of the number of expected deaths for the epidemiological weeks of the year 2020 calculated based on the 2015-2019 series with and without those anomalies were small (<0.7%). Thus, we chose to consider the complete series of the year 2016 for the estimation of expected deaths.
+
+
+### References:
+
+1. Farrington CP, Andrews NJ, Beale AD, Catchpole MA. A statistical algorithm for the early detection of outbreaks of infectious disease. J R Stat Soc Ser A Stat Soc. 1996; 159(3):547-63.
+
+2. Höhle M. Surveillance: An R package for the monitoring of infectious diseases. Computational Statistics. 2007; 22(4):571-582.
+
+\newpage
+
+# Supplementary Tables
+```{r include=FALSE}
+library(tidyverse)
+library(here)
+library(knitr)
+```
+
+### Supplementary Table 1. Number of expected deaths and its lower and upper 95% confidence limits by state, Brazil, 2020
+```{r echo=FALSE}
+tab1sup <- read.csv2(file=here("output", "tab1sup.csv"))
+kable(tab1sup)
+```
+
+\newpage
+
+### Supplementary Table 2. Number of expected deaths and its lower and upper 95% confidence limits by sex, age and race, Brazil, 2020
+```{r echo=FALSE}
+tab2sup <- read.csv2(file=here("output", "tab2sup.csv"))
+kable(tab2sup)
+```
+continue...
+
+# Supplementary Figures
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "norte.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='150%'}
+include_graphics(here("output", "nordeste.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "sudeste.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "sul.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "centro_oeste.png"))
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "sex.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='100%'}
+include_graphics(here("output", "race.png"))
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "RO.png"))
+include_graphics(here("output", "AC.png"))
+include_graphics(here("output", "AM.png"))
+include_graphics(here("output", "RR.png"))
+include_graphics(here("output", "PA.png"))
+include_graphics(here("output", "AP.png"))
+include_graphics(here("output", "TO.png"))
+
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "MA.png"))
+include_graphics(here("output", "PI.png"))
+include_graphics(here("output", "CE.png"))
+include_graphics(here("output", "RN.png"))
+include_graphics(here("output", "PB.png"))
+include_graphics(here("output", "PE.png"))
+include_graphics(here("output", "AL.png"))
+include_graphics(here("output", "SE.png"))
+include_graphics(here("output", "BA.png"))
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "MG.png"))
+include_graphics(here("output", "ES.png"))
+include_graphics(here("output", "RJ.png"))
+include_graphics(here("output", "SP.png"))
+```
+
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "PR.png"))
+include_graphics(here("output", "SC.png"))
+include_graphics(here("output", "RS.png"))
+```
+
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "MS.png"))
+include_graphics(here("output", "MT.png"))
+include_graphics(here("output", "GO.png"))
+include_graphics(here("output", "DF.png"))
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "Male.png"))
+include_graphics(here("output", "Female.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "Age_00_to_19.png"))
+include_graphics(here("output", "Age_20_to_39.png"))
+include_graphics(here("output", "Age_40_to_59.png"))
+include_graphics(here("output", "Age_60_to_79.png"))
+include_graphics(here("output", "Age_80_or_older.png"))
+```
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "White.png"))
+include_graphics(here("output", "Black.png"))
+include_graphics(here("output", "Brown.png"))
+include_graphics(here("output", "Other.png"))
+```
+<style>
+body {
+text-align: center}
+</style>
+
+## Supplementary figure 46. Alarms identified by the Farrington algorithm, Northeast region, Brazil, 2015 to 2020
+```{r, echo=FALSE, fig.align='center', out.width='100%'}
+include_graphics(here("output", "alarmes_NE1.png"))
+```
+
+## Supplementary figure 47. Alarms identified by the Farrington algorithm, Southeast region, Brazil, 2015 to 2020
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "alarmes_SE1.png")) 
+```
+
+## Supplementary figure 48. Alarms identified by the Farrington algorithm, South region, Brazil, 2015 to 2020
+```{r, echo=FALSE, fig.align='center', out.width='110%'}
+include_graphics(here("output", "alarmes_S1.png"))
+```
+
